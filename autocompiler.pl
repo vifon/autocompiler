@@ -6,6 +6,7 @@ use 5.010;
 
 use Linux::Inotify2;
 use Term::ReadKey;
+use Pod::Usage;
 use Getopt::Long;
 Getopt::Long::Configure(qw(
                               bundling
@@ -17,10 +18,34 @@ Getopt::Long::Configure(qw(
 my $separate = 1;
 my $directory;
 
+=head1 OPTIONS
+
+=over 4
+
+=item B<--separate>, B<--sep>, B<-s>
+
+Draw the lines separating compilations.
+
+=item B<--dir> I<directory>, B<-d> I<directory>
+
+Directory to scan.
+
+=back
+
+=cut
+
+my $help;
 GetOptions(
            "separate|sep|s!" => \$separate,
            "dir|d=s"         => \$directory,
-          ) or die "\n";
+           "help|h"          => \$help,
+          ) or die pod2usage {
+              -verbose => 2,
+          };
+
+pod2usage {
+    -verbose => 2,
+} if $help;
 
 my @args = @ARGV;
 
