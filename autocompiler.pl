@@ -34,18 +34,13 @@ Directory to scan.
 
 =cut
 
-my $help;
 GetOptions(
            "separate|sep|s!" => \$separate,
            "dir|d=s"         => \$directory,
-           "help|h"          => \$help,
+           "help|h"          => sub { pod2usage {-verbose => 2} },
           ) or die pod2usage {
               -verbose => 2,
           };
-
-pod2usage {
-    -verbose => 2,
-} if $help;
 
 my @args = @ARGV;
 
